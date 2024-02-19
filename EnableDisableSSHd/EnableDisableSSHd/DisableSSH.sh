@@ -4,18 +4,21 @@
 
 appdir=$(dirname -- "$0")
 
-if [ -d "/etc/ssh" ]; then
-  # restore original config
+# Restore the original configuration if available
+if [ -f "/etc/ssh/sshd_config.vendor-backup" ]; then
   mv -f /etc/ssh/sshd_config.vendor-backup /etc/ssh/sshd_config
-
-  # switch app entrypoint
-  rm -f "$appdir/DisableSSH.sh"
-  cp -f "$appdir/EnableDisableSSHd/EnableSSH.sh" "$appdir"
-  chmod +x "$appdir/EnableSSH.sh"
-
-  # ensure changes are written to disk
-  sync
-
-  # restarting SSHD to apply changes
-  systemctl restart sshd
 fi
+
+# Disable and stop the server
+systemctl disable ssh &>/tmp/anbernic-ssh-service.log
+systemctl stop ssh &>/tmp/anbernic-ssh-service.log
+
+# Switch application entrypoint
+rm -f "$appdir/DisableSSH.sh"
+cp -f "$appdir/EnableDisableSSHd/EnableSSH.sh" "$appdir"
+chmod +x "$appdir/EnableSSH.sh"
+
+# Ensure the changes are written to disk
+sync
+
+exit 0

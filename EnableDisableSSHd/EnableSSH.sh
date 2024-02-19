@@ -4,35 +4,36 @@
 
 appdir=$(dirname -- "$0")
 
-if [ -d "/etc/ssh" ]; then
-  # save original config
+# Install OpenSSH server if it doesn't exist
+if ! command -v sshd &>/dev/null; then
   mv -f /etc/ssh/sshd_config /etc/ssh/sshd_config.vendor-backup
-
-  # install openssh-server
   echo 'debconf debconf/frontend select Noninteractive' | \
-  debconf-set-selections
+    debconf-set-selections
   DEBIAN_FRONTEND="noninteractive" apt-get update -y --fix-missing \
-    &>/tmp/enable-ssh-update.log
+    &>/tmp/anbernic-apt-update.log
   DEBIAN_FRONTEND="noninteractive" apt-get install -y openssh-server \
-    &>/tmp/enable-ssh-install.log
-  systemctl enable ssh &>/tmp/enable-ssh-service.log
-
-  # install the new config
-  cp -f "$appdir/EnableDisableSSHd/sshd_config" \
-    /etc/ssh/sshd_config
-
-  # switch app entrypoint
-  rm -f "$appdir/EnableSSH.sh"
-  cp -f "$appdir/EnableDisableSSHd/DisableSSH.sh" "$appdir"
-  chmod +x "$appdir/DisableSSH.sh"
-
-  # ensure changes are written to disk
-  sync
-
-  # reset root password to "root"
-  echo "root:root" | chpasswd
-
-  # restarting SSHD to apply changes
-  systemctl restart sshd
+    &>/tmp/anbernic-apt-install.log
 fi
+
+# Install the new OpenSSH server configuration
+cp -f "$appdir/EnableDisableSSHd/ssh_config" /etc/ssh/sshd_config
+
+# Enable and start the server
+systemctl enable ssh &>/tmp/anbernic-ssh-service.log
+systemctl start ssh &>/tmp/anbernic-ssh-service.log
+
+# Set root password to "root"
+echo "root:root" | chpasswd
+
+# Switch application entrypoint
+rm -f "$appdir/EnableSSH.sh"
+cp -f "$appdir/EnableDisableSSHd/DisableSSH.sh" "$appdir"
+chmod +x "$appdir/DisableSSH.sh"
+
+# Ensure the changes are written to disk
+sync
+
+# Restart OpenSSH server to apply the changes
+systemctl restart ssh
+
 exit 0
