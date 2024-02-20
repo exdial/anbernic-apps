@@ -16,7 +16,7 @@ if ! command -v sshd &>/dev/null; then
 fi
 
 # Install the new OpenSSH server configuration
-cp -f "$appdir/EnableDisableSSHd/ssh_config" /etc/ssh/sshd_config
+cp -f "$appdir/SSH-Enabler/ssh_config" /etc/ssh/sshd_config
 
 # Enable and start the server
 systemctl enable ssh &>/tmp/anbernic-ssh-service.log
@@ -27,7 +27,7 @@ echo "root:root" | chpasswd
 
 # Switch application entrypoint
 rm -f "$appdir/EnableSSH.sh"
-cp -f "$appdir/EnableDisableSSHd/DisableSSH.sh" "$appdir"
+cp -f "$appdir/SSH-Enabler/DisableSSH.sh" "$appdir"
 chmod +x "$appdir/DisableSSH.sh"
 
 # Ensure the changes are written to disk

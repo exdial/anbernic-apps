@@ -15,7 +15,7 @@ systemctl stop ssh &>/tmp/anbernic-ssh-service.log
 
 # Switch application entrypoint
 rm -f "$appdir/DisableSSH.sh"
-cp -f "$appdir/EnableDisableSSHd/EnableSSH.sh" "$appdir"
+cp -f "$appdir/SSH-Enabler/EnableSSH.sh" "$appdir"
 chmod +x "$appdir/EnableSSH.sh"
 
 # Ensure the changes are written to disk
