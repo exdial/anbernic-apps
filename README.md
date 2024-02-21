@@ -5,6 +5,7 @@ the standard Anbernic RG35XX Plus operating system.
 
 * [SSH Enabler](#ssh-enabler)
 * [The Real Retro theme](#the-real-retro-theme)
+* [Improvement patch](#improvement-patch)
 
 ## SSH Enabler
 
@@ -28,3 +29,8 @@ Place the contents of the [TheRealRetro-Theme](https://github.com/exdial/anberni
 directory in *Roms/APPS* inside the internal(TF1) or external(TF2) SD card and start it from the Anbernic APPS menu.
 
 ![The Real Retro](.github/assets/trrt-preview.png)
+
+## Enhancement patch
+
+![Enhancement-Patch](Enhancement-Patch/Imgs/EnhancementPatch.png)
+
