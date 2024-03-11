@@ -5,7 +5,7 @@ the standard Anbernic RG35XX Plus operating system.
 
 * [SSH Enabler](#ssh-enabler)
 * [The Real Retro theme](#the-real-retro-theme)
-* [Improvement patch](#improvement-patch)
+* [Enhancement patch](#enhancement-patch)
 
 ## SSH Enabler
 
