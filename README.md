@@ -32,5 +32,5 @@ directory in *Roms/APPS* inside the internal(TF1) or external(TF2) SD card and s
 
 ## Enhancement patch
 
-![Enhancement-Patch](Enhancement-Patch/Imgs/EnhancementPatch.png)
+![Enhancement-Patch](Enhancement-Patch/Imgs/Enhancement-Patch.png)
 
