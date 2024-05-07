@@ -34,3 +34,7 @@ directory in *Roms/APPS* inside the internal(TF1) or external(TF2) SD card and s
 
 ![Enhancement-Patch](Enhancement-Patch/Imgs/Enhancement-Patch.png)
 
+Changes the locale from Chinese to **en_US.UTF-8** and disables unnecessary system services to free up handheld's resources.
+
+Place the contents of the [Enhancement patch](https://github.com/exdial/anbernic-apps/tree/master/Enhancement-Patch)
+directory in *Roms/APPS* inside the internal(TF1) or external(TF2) SD card and start it from the Anbernic APPS menu.
