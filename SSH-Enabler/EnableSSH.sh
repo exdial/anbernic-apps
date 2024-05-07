@@ -5,8 +5,7 @@
 appdir=$(dirname -- "$0")
 
 # Install OpenSSH server if it doesn't exist
-if ! command -v sshd &>/dev/null; then
-  mv -f /etc/ssh/sshd_config /etc/ssh/sshd_config.vendor-backup
+if systemctl list-units --full --all | grep -Fqi "ssh.service"; then
   echo 'debconf debconf/frontend select Noninteractive' | \
     debconf-set-selections
   DEBIAN_FRONTEND="noninteractive" apt-get update -y --fix-missing \
@@ -16,7 +15,12 @@ if ! command -v sshd &>/dev/null; then
 fi
 
 # Install the new OpenSSH server configuration
-cp -f "$appdir/SSH-Enabler/ssh_config" /etc/ssh/sshd_config
+if [ -f /etc/ssh/sshd_config ]; then
+  mv -f /etc/ssh/sshd_config /etc/ssh/sshd_config.vendor-backup
+  cp -f "$appdir/SSH-Enabler/sshd_config" /etc/ssh/sshd_config
+else
+  cp -f "$appdir/SSH-Enabler/sshd_config" /etc/ssh/sshd_config
+fi
 
 # Enable and start the server
 systemctl enable ssh &>/tmp/anbernic-ssh-service.log
@@ -27,7 +31,7 @@ echo "root:root" | chpasswd
 
 # Switch application entrypoint
 rm -f "$appdir/EnableSSH.sh"
-cp -f "$appdir/SSH-Enabler/DisableSSH.sh" "$appdir"
+cp -f "$appdir/SSH-Enabler/DisableSSH.sh.src" "$appdir"/DisableSSH.sh
 chmod +x "$appdir/DisableSSH.sh"
 
 # Ensure the changes are written to disk
