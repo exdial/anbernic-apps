@@ -1,5 +1,7 @@
 # Anbernic RG35XX Plus APPS
 
+_**Supported the latest version of OFW V1.1.2 20240428**_
+
 The repository contains applications for
 the standard Anbernic RG35XX Plus operating system.
 
