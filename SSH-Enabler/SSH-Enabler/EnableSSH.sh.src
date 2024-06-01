@@ -5,9 +5,8 @@
 appdir=$(dirname -- "$0")
 
 # Install OpenSSH server if it doesn't exist
-if systemctl list-units --full --all | grep -Fqi "ssh.service"; then
-  echo 'debconf debconf/frontend select Noninteractive' | \
-    debconf-set-selections
+if ! systemctl list-units --full --all | grep -Fqi "ssh.service"; then
+  echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
   DEBIAN_FRONTEND="noninteractive" apt-get update -y --fix-missing \
     &>/tmp/anbernic-apt-update.log
   DEBIAN_FRONTEND="noninteractive" apt-get install -y openssh-server \
