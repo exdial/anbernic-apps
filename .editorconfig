@@ -1,0 +1,24 @@
+# editorconfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = LF
+charset = utf-8
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 120
+trim_trailing_whitespace = true
+
+[*.{tf,tfvars}]
+indent_style = space
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[COMMIT_EDITMSG]
+max_line_length = 0
