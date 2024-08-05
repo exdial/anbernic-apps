@@ -21,21 +21,16 @@ systemctl disable ModemManager
 apt -y remove unattended-upgrades
 apt -y purge unattended-upgrades
 
-# Configure APT sources
+# Configure apt sources
 SRCLIST="/etc/apt/sources.list"
+mv "${SRCLIST}" "${SRCLIST}.vendor-backup"
 rm "${SRCLIST}.back" &>/dev/null
-rm /var/lib/apt/lists/*Translation-zh*
+rm -rf /var/lib/apt/lists/* &>/dev/null
 
 echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted universe multiverse" > "${SRCLIST}"
 echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted universe multiverse" >> "${SRCLIST}"
 echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-backports main restricted universe multiverse" >> "${SRCLIST}"
 echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main restricted universe multiverse" >> "${SRCLIST}"
-
-echo "#deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ jammy main restricted universe multiverse" >> "${SRCLIST}"
-echo "#deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ jammy-updates main restricted universe multiverse" >> "${SRCLIST}"
-echo "#deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ jammy-backports main restricted universe multiverse" >> "${SRCLIST}"
-echo "#deb http://ports.ubuntu.com/ubuntu-ports/ jammy-security main restricted universe multiverse" >> "${SRCLIST}"
-echo "#deb http://mirrors.ustc.edu.cn/ubuntu-ports jammy main" >> "${SRCLIST}"
 
 apt-get update
 apt-get -y clean
