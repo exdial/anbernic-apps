@@ -30,7 +30,7 @@ loading screens, and wallpapers with new ones.
 Place the contents of the [TheRealRetro-Theme](https://github.com/exdial/anbernic-apps/tree/master/TheRealRetro-Theme)
 directory in *Roms/APPS* inside the internal(TF1) or external(TF2) SD card and start it from the Anbernic APPS menu.
 
-![The Real Retro](.github/assets/trrt-preview.png)
+![The-Real-Retro](.github/assets/trrt-preview.png)
 
 ## Enhancement patch
 
@@ -42,7 +42,7 @@ directory in *Roms/APPS* inside the internal(TF1) or external(TF2) SD card and s
 * Disables unnecessary system services to free up handheld's resources
 * Configure apt sources to default `ports.ubuntu.com`
 
-Place the contents of the [Enhancement patch](https://github.com/exdial/anbernic-apps/tree/master/Enhancement-Patch)
+Place the contents of the [Enhancement-Patch](https://github.com/exdial/anbernic-apps/tree/master/Enhancement-Patch)
 directory in *Roms/APPS* inside the internal(TF1) or external(TF2) SD card and start it from the Anbernic APPS menu.
 
 ## Feedback
