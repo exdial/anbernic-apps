@@ -1,6 +1,6 @@
 # Anbernic RG35XX Plus APPS
 
-_**Supported the latest version of OFW V1.1.2 20240428**_
+***The compatible version of the official firmware Anbernic RG35XX Plus is 1.1.5 ([RG35XXPLUS-EN-240712](https://win.anbernic.com/download/318.html)) !***
 
 The repository contains applications for
 the standard Anbernic RG35XX Plus operating system.
