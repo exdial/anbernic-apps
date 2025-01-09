@@ -1,6 +1,6 @@
 # Anbernic RG35XX Plus APPS
 
-***The compatible versions of the official firmware Anbernic RG35XX Plus are 1.1.5, 1.1.6, 1.1.7, 1.1.8 ([RG35XXPLUS-V1.1.8-EN-241018](https://win.anbernic.com/download/318.html)) !***
+***Compatible versions of the official firmware for Anbernic RG35XX Plus: [1.1.5 - 1.1.9](https://win.anbernic.com/download/318.html) !***
 
 The repository contains applications for
 the standard Anbernic RG35XX Plus operating system.
