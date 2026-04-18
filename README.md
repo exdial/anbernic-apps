@@ -1,49 +1,53 @@
-# Anbernic RG35XX Plus APPS
+# Anbernic RG35XX Plus — Apps
 
-***Compatible versions of the official firmware for Anbernic RG35XX Plus: [1.1.5 - 1.2.0](https://win.anbernic.com/download/318.html) !***
+A collection of open-source apps for the **Anbernic RG35XX Plus** stock firmware (OFW).
 
-The repository contains applications for
-the standard Anbernic RG35XX Plus operating system.
+> Compatible with official firmware versions [1.1.5 - 1.2.3](https://win.anbernic.com/download/318.html)
 
-* [SSH Enabler](#ssh-enabler)
-* [The Real Retro theme](#the-real-retro-theme)
-* [Enhancement patch](#enhancement-patch)
+---
 
-## SSH Enabler
+## Installation
 
-![SSH-Enabler](SSH-Enabler/Imgs/EnableSSH.png)
+All apps follow the same installation pattern:
 
-The application allows to use an SSH server on Anbernic.
+1. Place the app directory contents into `Roms/APPS` on the internal (TF1) or external (TF2) SD card
+2. Launch from the Anbernic app menu
 
-The default username is **root** and the password is also **root**.
+---
 
-Place the contents of the [SSH-Enabler](https://github.com/exdial/anbernic-apps/tree/master/SSH-Enabler)
-directory in *Roms/APPS* inside the internal(TF1) or external(TF2) SD card and start it from the Anbernic APPS menu.
+## Apps
 
-_Make sure Anbernic is connected to WiFi!_
+### 🚀 System Booster
 
-## The Real Retro theme
+![System Booster](SystemBooster/Imgs/SystemBooster.png)
 
-An interface customization application that replaces standard interface icons,
-loading screens, and wallpapers with new ones.
+The RG35XX Plus OFW ships with a misconfigured timezone, broken package repositories, unnecessary background services draining CPU and battery, and an undersized userdata partition. System Booster addresses all of it in a single run - no terminal, no manual steps. Previously known as [Enhancement Patch](https://github.com/exdial/anbernic-apps/tree/master/Enhancment-Patch/README.md). Safe to run multiple times - it only applies changes that have not been made yet, and never overwrites existing backups.
 
-Place the contents of the [TheRealRetro-Theme](https://github.com/exdial/anbernic-apps/tree/master/TheRealRetro-Theme)
-directory in *Roms/APPS* inside the internal(TF1) or external(TF2) SD card and start it from the Anbernic APPS menu.
+**[→ System Booster](https://github.com/exdial/anbernic-apps/tree/master/SystemBooster/README.md)**
 
-![The-Real-Retro](.github/assets/trrt-preview.png)
+---
 
-## Enhancement patch
+### 🔑 SSH Enabler
 
-![Enhancement-Patch](Enhancement-Patch/Imgs/Enhancement-Patch.png)
+![SSH Enabler](SSH-Enabler/Imgs/EnableSSH.png)
 
-* Changes timezone to **Etc/UTC**
-* Enables time synchronization
-* Changes locales from Chinese to **en_US.UTF-8**
-* Disables unnecessary system services to free up handheld's resources
-* Configure apt sources to default `ports.ubuntu.com`
+Enables the SSH server on the device. Default credentials: `root` / `root`.
 
-Place the contents of the [Enhancement-Patch](https://github.com/exdial/anbernic-apps/tree/master/Enhancement-Patch)
-directory in *Roms/APPS* inside the internal(TF1) or external(TF2) SD card and start it from the Anbernic APPS menu.
+Requires an active Wi-Fi connection.
+
+**[→ SSH Enabler](https://github.com/exdial/anbernic-apps/tree/master/SSH-Enabler)**
+
+---
+
+### 🎨 The Real Retro Theme
+
+Replaces the stock UI icons, loading screens, and wallpapers with a custom retro aesthetic.
+
+![The Real Retro](.github/assets/trrt-preview.png)
+
+**[→ The Real Retro Theme](https://github.com/exdial/anbernic-apps/tree/master/TheRealRetro-Theme)**
+
+---
 
 ## Feedback
 
