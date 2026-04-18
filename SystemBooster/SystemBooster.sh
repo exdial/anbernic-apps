@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # ============================================================
-# RG35XX Plus — System Booster
+# RG35XX Plus - System Booster
 # Stock Firmware Optimization Patch
 #
 # https://github.com/exdial/anbernic-apps
@@ -17,9 +17,9 @@ PATH=/usr/sbin:/usr/bin:/sbin:/bin
 # Paths
 # ------------------------------------------------------------
 
-SERVICE_NAME="rg35xx-optimizer.service"
+SERVICE_NAME="rg35xx-system-booster.service"
 SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME"
-RUNTIME_SCRIPT="/usr/local/sbin/rg35xx-optimizer-runtime.sh"
+RUNTIME_SCRIPT="/usr/local/sbin/rg35xx-system-booster-runtime.sh"
 
 SYSCTL_FILE="/etc/sysctl.d/99-rg35xx.conf"
 
@@ -31,7 +31,7 @@ NM_FILE="$NM_DIR/powersave.conf"
 
 APT_LIST="/etc/apt/sources.list"
 
-BACKUP_DIR="/root/rg35xx-optimizer-backup"
+BACKUP_DIR="/root/rg35xx-system-booster-backup"
 
 # ------------------------------------------------------------
 # Preparation
@@ -103,7 +103,7 @@ kernel.nmi_watchdog=0
 EOF
 
 # ------------------------------------------------------------
-# journald — volatile, minimal RAM footprint
+# journald - volatile, minimal RAM footprint
 # ------------------------------------------------------------
 
 backup_file "$JOURNALD_FILE"
@@ -120,7 +120,7 @@ RateLimitBurst=50
 EOF
 
 # ------------------------------------------------------------
-# NetworkManager — Wi-Fi power save
+# NetworkManager - Wi-Fi power save
 # ------------------------------------------------------------
 
 backup_file "$NM_FILE"
@@ -147,10 +147,10 @@ mount -a >/dev/null 2>&1 || true
 # ------------------------------------------------------------
 # Steps:
 #   1. Check that mmcblk0 and mmcblk0p7 exist.
-#   2. Compare partition end vs disk size — skip if already full.
-#   3. parted resizepart 7 100% — extend the partition table entry.
-#   4. partprobe — tell the kernel about the new layout.
-#   5. e2fsck (offline only) + resize2fs — grow the ext4 filesystem.
+#   2. Compare partition end vs disk size - skip if already full.
+#   3. parted resizepart 7 100% - extend the partition table entry.
+#   4. partprobe - tell the kernel about the new layout.
+#   5. e2fsck (offline only) + resize2fs - grow the ext4 filesystem.
 #   Exits silently on any missing device or tool.
 # ------------------------------------------------------------
 
@@ -258,10 +258,11 @@ set_scheduler() {
   done
 }
 
-# Give the launcher normal priority (avoids UI lag)
+# Boost launcher priority to reduce UI lag
 tune_launcher() {
   PID=$(pgrep -f dmenu.bin 2>/dev/null | head -n 1 || true)
-  [ -n "$PID" ] && renice 0 -p "$PID" >/dev/null 2>&1 || true
+  [ -n "$PID" ] || return 0
+  renice -5 -p "$PID" >/dev/null 2>&1 || true
 }
 
 # Wi-Fi power save via iw (in addition to NetworkManager config)
@@ -294,7 +295,7 @@ chmod 755 "$RUNTIME_SCRIPT"
 
 cat > "$SERVICE_FILE" <<EOF
 [Unit]
-Description=RG35XX Plus Runtime Optimizer
+Description=RG35XX Plus System Booster Runtime
 After=local-fs.target systemd-sysctl.service
 Before=multi-user.target
 
