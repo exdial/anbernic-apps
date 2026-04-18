@@ -21,7 +21,7 @@ All apps follow the same installation pattern:
 
 ![System Booster](SystemBooster/Imgs/SystemBooster.png)
 
-The RG35XX Plus OFW ships with a misconfigured timezone, broken package repositories, unnecessary background services draining CPU and battery, and an undersized userdata partition. System Booster addresses all of it in a single run - no terminal, no manual steps. Previously known as [Enhancement Patch](https://github.com/exdial/anbernic-apps/tree/master/Enhancment-Patch/README.md). Safe to run multiple times - it only applies changes that have not been made yet, and never overwrites existing backups.
+The RG35XX Plus OFW ships with a misconfigured timezone, broken package repositories, unnecessary background services draining CPU and battery, and an undersized userdata partition. System Booster addresses all of it in a single run - no terminal, no manual steps. Previously known as [Enhancement Patch](https://github.com/exdial/anbernic-apps/tree/master/Enhancement-Patch/README.md). Safe to run multiple times - it only applies changes that have not been made yet, and never overwrites existing backups.
 
 **[→ System Booster](https://github.com/exdial/anbernic-apps/tree/master/SystemBooster/README.md)**
 
