@@ -58,7 +58,6 @@ echo "Etc/UTC" > /etc/timezone
 ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime || true
 
 dpkg-reconfigure -f noninteractive tzdata >/dev/null 2>&1 || true
-timedatectl set-ntp true >/dev/null 2>&1 || true
 
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 printf 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
@@ -71,7 +70,6 @@ update-locale LANG=en_US.UTF-8 >/dev/null 2>&1 || true
 # ------------------------------------------------------------
 
 backup_file "$APT_LIST"
-rm -rf /var/lib/apt/lists/* >/dev/null 2>&1 || true
 
 cat > "$APT_LIST" <<EOF
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted universe multiverse
@@ -80,13 +78,22 @@ deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-backports main restr
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main restricted universe multiverse
 EOF
 
-apt-get update >/dev/null 2>&1 || true
-apt-get -y remove unattended-upgrades >/dev/null 2>&1 || true
-apt-get -y purge  unattended-upgrades >/dev/null 2>&1 || true
-apt-get -y clean >/dev/null 2>&1 || true
-apt-get -y autoclean >/dev/null 2>&1 || true
-apt-get -y autoremove >/dev/null 2>&1 || true
-apt-get -y --fix-broken install >/dev/null 2>&1 || true
+# ------------------------------------------------------------
+# Network-dependent operations
+# ------------------------------------------------------------
+
+if ping -c 1 -W 3 ports.ubuntu.com >/dev/null 2>&1; then
+  timedatectl set-ntp true >/dev/null 2>&1 || true
+
+  rm -rf /var/lib/apt/lists/* >/dev/null 2>&1 || true
+  apt-get update >/dev/null 2>&1 || true
+  apt-get -y remove unattended-upgrades >/dev/null 2>&1 || true
+  apt-get -y purge  unattended-upgrades >/dev/null 2>&1 || true
+  apt-get -y clean >/dev/null 2>&1 || true
+  apt-get -y autoclean >/dev/null 2>&1 || true
+  apt-get -y autoremove >/dev/null 2>&1 || true
+  apt-get -y --fix-broken install >/dev/null 2>&1 || true
+fi
 
 # ------------------------------------------------------------
 # Persistent sysctl tuning
