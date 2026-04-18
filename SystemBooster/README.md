@@ -2,11 +2,17 @@
 
 ![](Imgs/SystemBooster.png)
 
-A system optimization app for the **Anbernic RG35XX Plus** OFW (official firmware). Fixes broken defaults, removes unnecessary background services, and applies low-level performance tuning. Designed to be installed and launched directly from the Anbernic app menu.
+The RG35XX Plus OFW ships with a misconfigured timezone, broken package repositories, unnecessary background services draining CPU and battery, and an undersized userdata partition. System Booster addresses all of it in a single run - no terminal, no manual steps.
 
 [System Booster](https://github.com/exdial/anbernic-apps/tree/master/SystemBooster) builds on the [Enhancement Patch](https://github.com/exdial/anbernic-apps/tree/master/Enhancement-Patch) - taking its core fixes as a baseline and going much further. Kernel parameters, I/O scheduling, memory management, and service configuration are all tuned based on production Linux experience from high-load systems, rethought for the hardware constraints of a handheld.
 
-> ⚠️ **The device will reboot automatically upon completion.**
+---
+
+## 📋 Requirements
+
+- Anbernic RG35XX Plus
+- Stock firmware (OFW)
+- Active internet connection on the device
 
 ---
 
@@ -14,9 +20,14 @@ A system optimization app for the **Anbernic RG35XX Plus** OFW (official firmwar
 
 Download [System Booster](https://github.com/exdial/anbernic-apps/tree/master/SystemBooster) and place it in the apps directory on your SD card. It will appear in the Anbernic app menu automatically. Launch it from the menu - the app will apply all optimizations and reboot the device.
 
+> ⚠️ **The device will reboot automatically upon completion.**
+
 ---
 
-## 🔧 What it does
+<details>
+<summary>📖 What it does — full breakdown</summary>
+
+---
 
 ### 🌍 Timezone and locale
 
@@ -163,7 +174,7 @@ mq-deadline → deadline → noop
 
 ---
 
-## 💾 Backup
+### 💾 Backup
 
 Before overwriting any configuration file, the original is saved to:
 
@@ -175,7 +186,7 @@ Backups are written once - subsequent runs do not overwrite existing backup file
 
 ---
 
-## 📁 Files installed
+### 📁 Files installed
 
 | Path                                                | Description                 |
 | --------------------------------------------------- | --------------------------- |
@@ -185,10 +196,33 @@ Backups are written once - subsequent runs do not overwrite existing backup file
 | `/etc/systemd/journald.conf.d/99-rg35xx.conf`       | journald configuration      |
 | `/etc/NetworkManager/conf.d/powersave.conf`         | Wi-Fi power save config     |
 
+</details>
+
 ---
 
+<details>
+<summary>🔬 Firmware internals — for developers and researchers</summary>
 
-## 🔬 Firmware internals
+The OFW is based on Ubuntu Jammy (22.04 LTS), ARM64. The internal SD card is exposed as `mmcblk0`.
+
+---
+
+### Partition layout
+
+```sh
+lsblk /dev/loop0
+NAME      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+loop0       7:0    0 14.4G  0 loop
+├─loop0p1 259:0    0    2G  0 part
+├─loop0p2 259:1    0   32M  0 part
+├─loop0p3 259:2    0   16M  0 part
+├─loop0p4 259:3    0   64M  0 part
+├─loop0p5 259:4    0    7G  0 part
+├─loop0p6 259:5    0    4G  0 part
+└─loop0p7 259:6    0  1.3G  0 part
+```
+
+---
 
 ### Mount firmware images as loop devices
 
@@ -210,22 +244,9 @@ NAME       SIZELIMIT OFFSET AUTOCLEAR RO BACK-FILE               DIO LOG-SEC
 
 ---
 
-### List partitions
+### Fix broken partition table
 
-```sh
-lsblk /dev/loop0
-NAME      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
-loop0       7:0    0 14.4G  0 loop
-├─loop0p1 259:0    0    2G  0 part
-├─loop0p2 259:1    0   32M  0 part
-├─loop0p3 259:2    0   16M  0 part
-├─loop0p4 259:3    0   64M  0 part
-├─loop0p5 259:4    0    7G  0 part
-├─loop0p6 259:5    0    4G  0 part
-└─loop0p7 259:6    0  1.3G  0 part
-```
-
-Some modified firmware images ship with a broken partition table - `p7` may be missing or have incorrect sector boundaries. Fix it with `sgdisk` before trying to access the filesystem:
+Some modified firmware images ship with a broken partition table - `p7` may be missing or have incorrect sector boundaries. Fix it with `sgdisk` before trying to access the filesystem.
 
 First, get the correct sector boundaries from the stock image:
 
@@ -254,6 +275,16 @@ sudo sgdisk -n 7:26773504:0 /dev/loop1
 
 ---
 
+### Diff two firmware images
+
+Mount both images and run a recursive diff:
+
+```sh
+diff -urN /mnt/stock /mnt/mod > diff.txt
+```
+
+---
+
 ### Extract and unpack p4 (kernel + initramfs)
 
 `p4` is an Android boot image containing the kernel and initramfs. Extract and unpack it:
@@ -266,6 +297,8 @@ gunzip initrd.gz
 cpio -idmv < initrd
 ```
 
+</details>
+
 ---
 
 ## 🤝 Contributing
@@ -277,4 +310,4 @@ Please test changes on actual hardware before submitting.
 
 ## 🔗 Links
 
-- [anbernic-apps on GitHub](https://github.com/exdial/anbernic-apps)
+- [Suggestions and improvements](https://github.com/exdial/anbernic-apps/issues)
