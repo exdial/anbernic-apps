@@ -1,0 +1,22 @@
+# https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+
+default: true
+
+# Allow arbitrary heading levels (e.g. h3 after h1 in details blocks)
+MD001: false
+
+# Line length - disable, code blocks and tables make this impractical
+MD013: false
+
+# Allow multiple blank lines (common in long READMEs)
+MD012: false
+
+# Allow raw HTML (used for <details> blocks)
+MD033: false
+
+# Allow duplicate headings across different sections
+MD024:
+  siblings_only: true
+
+# Allow trailing punctuation in headings (e.g. "What it does — full breakdown")
+MD026: false
