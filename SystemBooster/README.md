@@ -1,6 +1,6 @@
 # 🎮 RG35XX Plus — System Booster
 
-![](Imgs/SystemBooster.png)
+![SystemBooster](Imgs/SystemBooster.png)
 
 The RG35XX Plus OFW ships with a misconfigured timezone, broken package repositories, unnecessary background services draining CPU and battery, and an undersized userdata partition. System Booster addresses all of it in a single run - no terminal, no manual steps.
 
