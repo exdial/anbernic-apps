@@ -13,7 +13,7 @@ appdir=$(dirname -- "$0")
 if [ -d "/mnt/vendor" ]; then
   cp -rf "$appdir"/TheRealRetro-Theme/* /mnt/vendor/
   find /mnt/vendor -name .DS_Store -delete
-  find /mnt/vendor -name ._* -delete
+  find /mnt/vendor -name '._*' -delete
   sync
 fi
 
@@ -27,7 +27,7 @@ if [ ! -d "/mnt/bootlogomount" ]; then
   cp "$appdir/TheRealRetro-Theme/res1/boot/bootlogo.bmp" \
     /mnt/bootlogomount/bootlogo.bmp
   find /mnt/bootlogomount -name .DS_Store -delete
-  find /mnt/bootlogomount -name ._* -delete
+  find /mnt/bootlogomount -name '._*' -delete
 
   # Ensure changes are written to disk
   sync

@@ -43,7 +43,7 @@ The stock firmware ships with region-specific timezone and locale settings. The 
 
 The OFW `sources.list` points to broken or vendor-specific mirrors that are either unavailable or misconfigured for the `arm64` architecture. The app replaces it with the official Ubuntu Jammy ports repositories.
 
-```
+```sh
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted universe multiverse
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted universe multiverse
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-backports main restricted universe multiverse
@@ -154,13 +154,13 @@ Installed as a `oneshot` systemd service (`rg35xx-system-booster.service`) that 
 
 **CPU governor** - iterates over all `cpufreq` policy nodes and applies the best available governor in priority order:
 
-```
+```text
 schedutil → ondemand → interactive → powersave
 ```
 
 **I/O scheduler** - applied to `mmcblk0` and `mmcblk1`. Priority order:
 
-```
+```text
 mq-deadline → deadline → noop
 ```
 
@@ -178,7 +178,7 @@ mq-deadline → deadline → noop
 
 Before overwriting any configuration file, the original is saved to:
 
-```
+``` text
 /root/rg35xx-system-booster-backup/
 ```
 
