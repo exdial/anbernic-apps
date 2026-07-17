@@ -2,7 +2,7 @@
 
 A collection of open-source apps for the **Anbernic RG35XX Plus** stock firmware (OFW).
 
-> Compatible with official firmware versions [1.1.5 - 1.2.3](https://win.anbernic.com/download/318.html)
+> Compatible with official firmware versions [1.1.5 - 1.2.4](https://win.anbernic.com/download/318.html)
 
 ---
 
